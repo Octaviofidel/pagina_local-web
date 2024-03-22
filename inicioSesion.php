@@ -113,7 +113,7 @@
               <!-- RD Navbar Panel-->
               <div class="rd-navbar-panel">
                 <!-- RD Navbar Brand-->
-                <div class="rd-navbar-brand"><a class="brand" href="index.html" style="max-width: 88px;">
+                <div class="rd-navbar-brand"><a class="brand" href="index.php" style="max-width: 88px;">
                     <img src="images/logo.png" srcset="images/logo.png" style="max-width: 100px;"></a>
                 </div>
                 <!-- RD Navbar Toggle-->
@@ -134,13 +134,13 @@
                   <!-- RD Navbar Nav-->
                   <ul class="rd-navbar-nav">
                     <li class="logocasa">
-                      <a class="rd-nav-item" href="index.html" style="max-width: 88px;">
+                      <a class="rd-nav-item" href="index.php" style="max-width: 88px;">
                         <img src="images/logo.png" srcset="images/logo.png"
                           style="max-width: 100px;"></a>
                     </li>
-                    <li class="rd-nav-item active"><a class="rd-nav-link" href="index.html#home">Inicio</a>
+                    <li class="rd-nav-item active"><a class="rd-nav-link" href="index.php#home">Inicio</a>
                     </li>
-                    <li class="rd-nav-item"><a class="rd-nav-link" href="index.html#about">¿Quiénes somos?</a>
+                    <li class="rd-nav-item"><a class="rd-nav-link" href="index.php#about">¿Quiénes somos?</a>
                     </li>
 
 
@@ -158,11 +158,11 @@
                         <a href="banqycat.html">Banquetes y Catering</a>
                       </div>
                     </li>
-                    <li class="rd-nav-item"><a class="rd-nav-link" href="index.html#contacts">Contáctenos</a>
+                    <li class="rd-nav-item"><a class="rd-nav-link" href="index.php#contacts">Contáctenos</a>
                     </li>
-                    <li class="rd-nav-item"><a class="rd-nav-link" href="index.html#cat">Catálogo</a>
+                    <li class="rd-nav-item"><a class="rd-nav-link" href="index.php#cat">Catálogo</a>
                     </li>
-                    <li class="rd-nav-item"><a class="rd-nav-link" href="inicioSesion.html">Inicio de sesion</a>
+                    <li class="rd-nav-item"><a class="rd-nav-link" href="inicioSesion.php">Inicio de sesion</a>
                     </li>
                   </ul>
                   <div class="contacts-classic">
@@ -203,7 +203,7 @@
                 <h6 class="title-style-1 wow fadeInRight letras_color2" data-wow-delay=".05s">Bienvenido</h6>
                 <div class="form-style-1 context-dark wow blurIn">
                   <!-- RD Mailform-->
-                  <form class="text-left" data-form-output="form-output-global" data-form-type="contact" method="post" action="email.php">
+                  <form class="text-left" data-form-output="form-output-global" data-form-type="contact">
                     <div class="form-wrap">
                       <label class="form-label" for="contact-email-2">Email</label>
                       <input class="form-input" id="contact-email-2" type="email" name="email" data-constraints="@Required @Email">
@@ -218,7 +218,7 @@
                       </div>
                       <div class="d-inline-block">
                         <button class="button button-jerry button-primary">
-                          <a href="registro.html" style="text-decoration: none; color: inherit;">Registrate</a>
+                          <a href="registro.php" style="text-decoration: none; color: inherit;">Registrate</a>
                           <span class="button-jerry-line"></span><span class="button-jerry-line"></span><span class="button-jerry-line"></span><span class="button-jerry-line"></span>
                         </button>
                       </div>
@@ -612,7 +612,7 @@
           </div>
         </div>
       </div>
-      <div class="container"><a class="brand wow blurIn" href="index.html">
+      <div class="container"><a class="brand wow blurIn" href="index.php">
           <img src="images/logo.png" alt="" width="25%" height="auto"
             srcset="images/logo.png"></a>
         <p class="rights">

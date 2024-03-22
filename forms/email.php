@@ -14,7 +14,7 @@ $mensaje = "Este mesaje fue enviado por:" . $pais . ",\r\n";
 $mensaje = "Este mesaje fue enviado por:" . $comentarios . ",\r\n";
 
 $para = 'junior090699@gmail.com';
-Asunto = 'Email enviado desde Eliashomesolutions.com'
+// Asunto = 'Email enviado desde Eliashomesolutions.com'
 
 mail($para, $asunto, utf_code($mensaje, $header));
 header('Location.ingles.html');

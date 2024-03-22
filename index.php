@@ -1,4 +1,21 @@
-﻿<!DOCTYPE html>
+﻿<?php
+include 'connection_bd.php';
+$conn = conectar();
+
+$sql = "INSERT INTO `usuario`(`nombre`, `email`, `telefono`, `pass`)
+VALUES ('value-1', 'value-2', 'value-3', 'value-4')";
+
+try{if (mysqli_query($conn, $sql)) {
+ 
+} else {
+  echo "Error en la BD: " . mysqli_error($conn);
+}}catch (e){
+ echo'error';
+}
+
+?>
+
+<!DOCTYPE html>
 <html class="wide wow-animation" lang="en-US">
 
 <head>
@@ -7,15 +24,14 @@
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="icon" href="images/logo.png" type="image/x-icon">
-  <link rel="stylesheet" type="text/css" href="css?family=Montserrat:300,400,500,700,800">
   <link rel="stylesheet" href="css%20%281%29/bootstrap.css">
   <link rel="stylesheet" href="css%20%281%29/fonts.css">
   <link rel="stylesheet" href="css%20%281%29/style.css">
   <link rel="stylesheet" href="css%20%281%29/galery.css">
   <link rel="stylesheet" href="gh/FortAwesome/Font-Awesome%405.1.0/web-fonts-with-css/css/fontawesome-all.min.css"
     crossorigin="anonymous">
-  <script src="ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="mobile/1.5.0-alpha.1/jquery.mobile-1.5.0-alpha.1.min.js"></script>
+  <!-- <script src="ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
+  <!-- <script src="mobile/1.5.0-alpha.1/jquery.mobile-1.5.0-alpha.1.min.js"></script> -->
 
 
   <link rel="manifest" href="/site.webmanifest">
@@ -85,7 +101,7 @@
   <noscript>
 
     <img height="1" width="1" src="tr?id=3247711131908165&ev=PageView
-  
+
   &noscript=1">
 
   </noscript>
@@ -101,10 +117,6 @@
 
 
 
-  <div class="ie-panel"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img
-        src="images/ie8-panel/warning_bar_0000_us.jpg" height="42" width="820"
-        alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a>
-  </div>
 
   <div class="preloader">
 
@@ -197,10 +209,10 @@
                     </li>
 
                     <li class="rd-nav-item"><a class="rd-nav-link" href="#cat">haz tu pedido</a>
-                  
+
                     </li>
 
-                    <li class="rd-nav-item"><a class="rd-nav-link" href="inicioSesion.html">Inicio de sesion</a>
+                    <li class="rd-nav-item"><a class="rd-nav-link" href="inicioSesion.php">Inicio de sesion</a>
 
                     </li>
 
@@ -265,7 +277,7 @@
           <div class="swiper-slide context-dark" data-slide-bg="images/gord.jpeg">
 
 
- 
+
             <ul class="project-modern-info">
 
               <li class="heading-6 project-modern-info-item project-modern-address" data-caption-animate="fadeInDown"
@@ -566,7 +578,6 @@
           <div class="col-lg-4 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="300">
             <div class="icon-box">
               <div class="icon"><i class="bx bx-arch"></i></div>
-              <img src="images/Atardecer.png" alt="" class="img-right">
               <h4><a href="">Sope</a></h4>
               <p>Modi nostrum vel laborum. Porro fugit error sit minus sapiente sit aspernatur</p>
             </div>
@@ -596,7 +607,7 @@
     <!-- Contact Us<div class="container">
                 <div class="caption-classic">
                     <div class="caption-classic-group">
-                        <h1 class="caption-classic-title wow fadeInLeft"><span class="font-weight-light">Contacto</span></h1>   
+                        <h1 class="caption-classic-title wow fadeInLeft"><span class="font-weight-light">Contacto</span></h1>
                     </div>
                     <div class="caption-classic-decor wow blurIn"></div>
                 </div>-->
@@ -609,7 +620,7 @@
             <div class="col-lg-6 d-none d-lg-block wow fadeInLeft"><img src="images/logo.png" alt="" width="200"
                 height="200">
             </div>
-         
+
           </div>
         </div>
         <div>
@@ -700,7 +711,7 @@
   <script src="js/core.min.js"></script>
   <script src="js/script.js"></script>
 
-  <script>
+  <!-- <script>
 
 
 
@@ -722,9 +733,9 @@
               $('#modal-img').modal("show");
             });
           })*/
-  </script>
+  </script> -->
 
-  <script type="text/javascript">
+  <!-- <script type="text/javascript">
     var slideIndex = 1;
 
     $(window).scroll(function (event) {
@@ -794,19 +805,18 @@
     var x = window.matchMedia("(max-width: 500px)");
     myFunction(x)
     x.addListener(myFunction)
-  </script>
-
+  </script> -->
+<!-- 
   <script>
     function ajustar() {
       let cuadro = document.getElementById("imgsmovil");
-      let alto = cuadro.clientWidth;
 
-      $("#imgsmovil").height(alto);
 
-      console.log(alto);
+
+
     }
     ajustar();
-  </script>
+  </script> -->
 
   <!-- coded by Ragnar -->
   </div>

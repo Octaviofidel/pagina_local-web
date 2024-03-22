@@ -1,3 +1,31 @@
+<?php
+include 'connection_bd.php';
+  // Conectar a la base de datos
+  $conn = conectar();
+    // Capturar los valores del formulario
+    $nombre = $_POST['nombre'];
+    $email = $_POST['email'];
+    $telefono = $_POST['telefono'];
+    $password =md5($_POST['pass']);
+
+  
+
+   
+    // Preparar la consulta SQL
+    $sql = "INSERT INTO usuario (nombre, email, telefono, pass)
+            VALUES ('$nombre', '$email', '$telefono', '$password')";
+
+    // Ejecutar la consulta SQL
+    if (mysqli_query($conn, $sql)) {
+        echo "Registro insertado correctamente";
+    } else {
+        echo "Error al insertar el registro: " . mysqli_error($conn);
+    }
+
+    // Cerrar la conexión
+    // mysqli_close($conn);
+
+?>
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="es">
 
@@ -203,10 +231,10 @@
                 <h6 class="title-style-1 wow fadeInRight letras_color2" data-wow-delay=".05s">Crea tu cuenta aquí</h6>
                 <div class="form-style-1 context-dark wow blurIn">
                   <!-- RD Mailform-->
-                  <form class="text-left" data-form-output="form-output-global" data-form-type="contact" method="post" action="email.php">
+                  <form class="text-left" data-form-output="form-output-global" data-form-type="contact" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                     <div class="form-wrap">
                       <label class="form-label" for="contact-name-2">Nombre completo</label>
-                      <input class="form-input" id="contact-name-2" type="text" name="pais" data-constraints="@Required">
+                      <input class="form-input" id="contact-name-2" type="text" name="nombre" data-constraints="@Required">
                     </div>
                     <div class="form-wrap">
                       <label class="form-label" for="contact-email-3">Email</label>
@@ -214,7 +242,7 @@
                     </div>
                     <div class="form-wrap">
                       <label class="form-label" for="contact-phone-2">Teléfono</label>
-                      <input class="form-input" id="contact-phone-2" type="text" name="phone" data-constraints="@Required @PhoneNumber">
+                      <input class="form-input" id="contact-phone-2" type="text" name="telefono" data-constraints="@Required @PhoneNumber">
                     </div>
                     <div class="form-wrap">
                       <label class="form-label" for="contact-com-3">Contraseña</label>
@@ -250,294 +278,7 @@
         <div class="m odal-body">
           <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
-              <div class="carousel-item" id="0">
-                <img class="img-fluid" src="images/caras.jpg" alt="LW__0052_Layer-2-copy-52.jpg">
-              </div>
-              <div class="carousel-item" id="1">
-                <img class="img-fluid" src="images/cliente 3.jpg" alt="LW__0091_Layer-2-copy-91.jpg">
-              </div>
-              <div class="carousel-item" id="2">
-                <img class="img-fluid" src="images/clientes 2.jpg" alt="LW__0097_Layer-2-copy-97.jpg">
-              </div>
-              <div class="carousel-item" id="3">
-                <img class="img-fluid" src="images/clientes 4.jpg" alt="LW__0057_Layer-2-copy-57.jpg">
-              </div>
-              <div class="carousel-item" id="4">
-                <img class="img-fluid" src="images/fam2.jpg" alt="LW__0061_Layer-2-copy-61.jpg">
-              </div>
-              <div class="carousel-item" id="5">
-                <img class="img-fluid" src="images/fam3.jpg" alt="LW__0015_Layer-2-copy-15.jpg">
-              </div>
-              <div class="carousel-item" id="6">
-                <img class="img-fluid" src="images/fernandofam.jpg" alt="LW__0059_Layer-2-copy-59.jpg">
-              </div>
-              <div class="carousel-item" id="7">
-                <img class="img-fluid" src="images/unapersona.jpg" alt="LW__0049_Layer-2-copy-49.jpg">
-              </div>
-              <div class="carousel-item" id="8">
-                <img class="img-fluid" src="images/lugar 1.jpeg " alt="LW__0067_Layer-2-copy-67.jpg">
-              </div>
-              <div class="carousel-item" id="9">
-                <img class="img-fluid" src="images/lugar 2.jpeg" alt="LW__0011_Layer-2-copy-11.jpg">
-              </div>
-              <div class="carousel-item" id="10">
-                <img class="img-fluid" src="images/G11.jpeg" alt="LW__0036_Layer-2-copy-36.jpg">
-              </div>
-              <div class="carousel-item" id="11">
-                <img class="img-fluid" src="images/G12.jpeg" alt="LW__0023_Layer-2-copy-23.jpg">
-              </div>
-              <div class="carousel-item" id="12">
-                <img class="img-fluid" src="images/G13.jpeg" alt="LW__0042_Layer-2-copy-42.jpg">
-              </div>
-              <div class="carousel-item" id="13">
-                <img class="img-fluid" src="images/G14.jpeg" alt="LW__0042_Layer-2-copy-42.jpg">
-              </div>
-              <div class="carousel-item" id="15">
-                <img class="img-fluid" src="images/G16.jpeg" alt="LW__0042_Layer-2-copy-42.jpg">
-              </div>
-              <div class="carousel-item" id="16">
-                <img class="img-fluid" src="images/G17.jpeg" alt="LW__0042_Layer-2-copy-42.jpg">
-              </div>
-              <div class="carousel-item" id="17">
-                <img class="img-fluid" src="images/G18.jpeg" alt="LW__0042_Layer-2-copy-42.jpg">
-              </div>
-              <div class="carousel-item" id="18">
-                <img class="img-fluid" src="images/G19.jpeg" alt="LW__0010_Layer-2-copy-10.jpg">
-              </div>
-              <div class="carousel-item" id="19">
-                <img class="img-fluid" src="images/G20.jpeg" alt="LW__0028_Layer-2-copy-28.jpg">
-              </div>
-              <div class="carousel-item" id="20">
-                <img class="img-fluid" src="images/G21.jpeg" alt="LW__0073_Layer-2-copy-73.jpg">
-              </div>
-              <div class="carousel-item" id="21">
-                <img class="img-fluid" src="images/G22.jpeg" alt="LW__0044_Layer-2-copy-44.jpg">
-              </div>
-              <div class="carousel-item" id="22">
-                <img class="img-fluid" src="images/G23.jpeg" alt="LW__0045_Layer-2-copy-45.jpg">
-              </div>
-              <div class="carousel-item" id="23">
-                <img class="img-fluid" src="images/G24.jpeg" alt="LW__0100_Layer-2-copy-100.jpg">
-              </div>
-              <div class="carousel-item" id="24">
-                <img class="img-fluid" src="images/G25.jpeg" alt="LW__0086_Layer-2-copy-86.jpg">
-              </div>
-              <div class="carousel-item" id="25">
-                <img class="img-fluid" src="images/G26.jpeg" alt="LW__0071_Layer-2-copy-71.jpg">
-              </div>
-              <div class="carousel-item" id="26">
-                <img class="img-fluid" src="images/G27.jpeg" alt="LW__0082_Layer-2-copy-82.jpg">
-              </div>
-              <div class="carousel-item" id="27">
-                <img class="img-fluid" src="images/G28.jpeg" alt="LW__0000_Layer-2.jpg">
-              </div>
-              <div class="carousel-item" id="28">
-                <img class="img-fluid" src="images/G29.jpeg" alt="LW__0050_Layer-2-copy-50.jpg">
-              </div>
-              <div class="carousel-item" id="29">
-                <img class="img-fluid" src="images/G30.jpeg" alt="LW__0003_Layer-2-copy-3.jpg">
-              </div>
-              <div class="carousel-item" id="30">
-                <img class="img-fluid" src="images/G31.jpeg" alt="LW__0037_Layer-2-copy-37.jpg">
-              </div>
-              <div class="carousel-item" id="31">
-                <img class="img-fluid" src="images/G32.jpeg" alt="LW__0040_Layer-2-copy-40.jpg">
-              </div>
-              <div class="carousel-item" id="32">
-                <img class="img-fluid" src="images/G33.jpeg" alt="LW__0030_Layer-2-copy-30.jpg">
-              </div>
-              <div class="carousel-item" id="33">
-                <img class="img-fluid" src="images/G34.jpeg" alt="LW__0007_Layer-2-copy-7.jpg">
-              </div>
-              <div class="carousel-item" id="34">
-                <img class="img-fluid" src="images/G35.jpeg" alt="LW__0001_Layer-2-copy.jpg">
-              </div>
-              <div class="carousel-item" id="36">
-                <img class="img-fluid" src="images/G37.jpeg" alt="LW__0006_Layer-2-copy-6.jpg">
-              </div>
-              <div class="carousel-item" id="37">
-                <img class="img-fluid" src="images/G38.jpeg" alt="LW__0077_Layer-2-copy-77.jpg">
-              </div>
-              <div class="carousel-item" id="38">
-                <img class="img-fluid" src="images/G39.jpeg" alt="LW__0004_Layer-2-copy-4.jpg">
-              </div>
-              <div class="carousel-item" id="39">
-                <img class="img-fluid" src="images/G40.jpeg" alt="LW__0014_Layer-2-copy-14.jpg">
-              </div>
-              <div class="carousel-item" id="40">
-                <img class="img-fluid" src="images/G41.jpeg" alt="LW__0014_Layer-2-copy-14.jpg">
-              </div>
-              <div class="carousel-item" id="41">
-                <img class="img-fluid" src="images/G42.jpeg" alt="LW__0014_Layer-2-copy-14.jpg">
-              </div>
-              <div class="carousel-item" id="42">
-                <img class="img-fluid" src="images/G43.jpeg" alt="LW__0052_Layer-2-copy-52.jpg">
-              </div>
-              <div class="carousel-item" id="43">
-                <img class="img-fluid" src="images/G44.jpeg" alt="LW__0091_Layer-2-copy-91.jpg">
-              </div>
-              <div class="carousel-item" id="44">
-                <img class="img-fluid" src="images/G45.jpeg" alt="LW__0097_Layer-2-copy-97.jpg">
-              </div>
-              <div class="carousel-item" id="45">
-                <img class="img-fluid" src="images/G46.jpeg" alt="LW__0057_Layer-2-copy-57.jpg">
-              </div>
-              <div class="carousel-item" id="46">
-                <img class="img-fluid" src="images/G47.jpeg" alt="LW__0061_Layer-2-copy-61.jpg">
-              </div>
-              <div class="carousel-item" id="47">
-                <img class="img-fluid" src="images/G48.jpeg" alt="LW__0015_Layer-2-copy-15.jpg">
-              </div>
-              <div class="carousel-item" id="48">
-                <img class="img-fluid" src="images/G49.jpeg" alt="LW__0059_Layer-2-copy-59.jpg">
-              </div>
-              <div class="carousel-item" id="49">
-                <img class="img-fluid" src="images/G50.jpeg" alt="LW__0049_Layer-2-copy-49.jpg">
-              </div>
-              <div class="carousel-item" id="50">
-                <img class="img-fluid" src="images/G51.jpeg" alt="LW__0067_Layer-2-copy-67.jpg">
-              </div>
-              <div class="carousel-item" id="51">
-                <img class="img-fluid" src="images/G52.jpeg" alt="LW__0011_Layer-2-copy-11.jpg">
-              </div>
-              <div class="carousel-item" id="52">
-                <img class="img-fluid" src="images/G53.jpeg" alt="LW__0036_Layer-2-copy-36.jpg">
-              </div>
-              <div class="carousel-item" id="53">
-                <img class="img-fluid" src="images/G54.jpeg" alt="LW__0023_Layer-2-copy-23.jpg">
-              </div>
-              <div class="carousel-item" id="55">
-                <img class="img-fluid" src="images/G56.jpeg" alt="LW__0042_Layer-2-copy-42.jpg">
-              </div>
-              <div class="carousel-item" id="56">
-                <img class="img-fluid" src="images/G57.jpg" alt="LW__0042_Layer-2-copy-42.jpg">
-              </div>
-              <div class="carousel-item" id="57">
-                <img class="img-fluid" src="images/G58.jpeg" alt="LW__0042_Layer-2-copy-42.jpg">
-              </div>
-              <div class="carousel-item" id="58">
-                <img class="img-fluid" src="images/G59.jpeg" alt="LW__0042_Layer-2-copy-42.jpg">
-              </div>
-              <div class="carousel-item" id="59">
-                <img class="img-fluid" src="images/G60.jpeg" alt="LW__0042_Layer-2-copy-42.jpg">
-              </div>
-              <div class="carousel-item" id="60">
-                <img class="img-fluid" src="images/G61.jpeg" alt="LW__0010_Layer-2-copy-10.jpg">
-              </div>
-              <div class="carousel-item" id="61">
-                <img class="img-fluid" src="images/G62.jpeg" alt="LW__0028_Layer-2-copy-28.jpg">
-              </div>
-              <div class="carousel-item" id="62">
-                <img class="img-fluid" src="images/G63.jpeg" alt="LW__0073_Layer-2-copy-73.jpg">
-              </div>
-              <div class="carousel-item" id="63">
-                <img class="img-fluid" src="images/G64.jpeg" alt="LW__0044_Layer-2-copy-44.jpg">
-              </div>
-              <div class="carousel-item" id="64">
-                <img class="img-fluid" src="images/G65.jpeg" alt="LW__0045_Layer-2-copy-45.jpg">
-              </div>
-              <div class="carousel-item" id="65">
-                <img class="img-fluid" src="images/G66.jpeg" alt="LW__0100_Layer-2-copy-100.jpg">
-              </div>
-              <div class="carousel-item" id="66">
-                <img class="img-fluid" src="images/G67.jpeg" alt="LW__0086_Layer-2-copy-86.jpg">
-              </div>
-              <div class="carousel-item" id="67">
-                <img class="img-fluid" src="images/G68.jpeg" alt="LW__0071_Layer-2-copy-71.jpg">
-              </div>
-              <div class="carousel-item" id="68">
-                <img class="img-fluid" src="images/G69.jpeg" alt="LW__0082_Layer-2-copy-82.jpg">
-              </div>
-              <div class="carousel-item" id="69">
-                <img class="img-fluid" src="images/G70.jpeg" alt="LW__0000_Layer-2.jpg">
-              </div>
-              <div class="carousel-item" id="70">
-                <img class="img-fluid" src="images/G71.jpeg" alt="LW__0050_Layer-2-copy-50.jpg">
-              </div>
-              <div class="carousel-item" id="71">
-                <img class="img-fluid" src="images/G72.jpeg" alt="LW__0003_Layer-2-copy-3.jpg">
-              </div>
-              <div class="carousel-item" id="72">
-                <img class="img-fluid" src="images/G73.jpeg" alt="LW__0037_Layer-2-copy-37.jpg">
-              </div>
-              <div class="carousel-item" id="73">
-                <img class="img-fluid" src="images/G74.jpeg" alt="LW__0040_Layer-2-copy-40.jpg">
-              </div>
-              <div class="carousel-item" id="74">
-                <img class="img-fluid" src="images/G75.jpeg" alt="LW__0030_Layer-2-copy-30.jpg">
-              </div>
-              <div class="carousel-item" id="75">
-                <img class="img-fluid" src="images/G76.jpeg" alt="LW__0007_Layer-2-copy-7.jpg">
-              </div>
-              <div class="carousel-item" id="76">
-                <img class="img-fluid" src="images/G77.jpeg" alt="LW__0001_Layer-2-copy.jpg">
-              </div>
-              <div class="carousel-item" id="78">
-                <img class="img-fluid" src="images/G79.jpeg" alt="LW__0006_Layer-2-copy-6.jpg">
-              </div>
-              <div class="carousel-item" id="79">
-                <img class="img-fluid" src="images/G80.jpeg" alt="LW__0077_Layer-2-copy-77.jpg">
-              </div>
-              <div class="carousel-item" id="80">
-                <img class="img-fluid" src="images/G81.jpeg" alt="LW__0004_Layer-2-copy-4.jpg">
-              </div>
-              <div class="carousel-item" id="81">
-                <img class="img-fluid" src="images/G82.jpeg" alt="LW__0014_Layer-2-copy-14.jpg">
-              </div>
-              <div class="carousel-item" id="82">
-                <img class="img-fluid" src="images/G83.jpeg" alt="LW__0014_Layer-2-copy-14.jpg">
-              </div>
-              <div class="carousel-item" id="83">
-                <img class="img-fluid" src="images/G84.jpeg" alt="LW__0014_Layer-2-copy-14.jpg">
-              </div>
-              <div class="carousel-item" id="84">
-                <img class="img-fluid" src="images/G85.jpeg" alt="LW__0037_Layer-2-copy-37.jpg">
-              </div>
-              <div class="carousel-item" id="85">
-                <img class="img-fluid" src="images/G86.jpeg" alt="LW__0040_Layer-2-copy-40.jpg">
-              </div>
-              <div class="carousel-item" id="86">
-                <img class="img-fluid" src="images/G87.jpeg" alt="LW__0030_Layer-2-copy-30.jpg">
-              </div>
-              <div class="carousel-item" id="87">
-                <img class="img-fluid" src="images/G88.jpeg" alt="LW__0007_Layer-2-copy-7.jpg">
-              </div>
-              <div class="carousel-item" id="88">
-                <img class="img-fluid" src="images/G89.jpeg" alt="LW__0001_Layer-2-copy.jpg">
-              </div>
-              <div class="carousel-item" id="89">
-                <img class="img-fluid" src="images/G90.jpeg" alt="LW__0093_Layer-2-copy-93.jpg">
-              </div>
-              <div class="carousel-item" id="90">
-                <img class="img-fluid" src="images/G91.jpeg" alt="LW__0006_Layer-2-copy-6.jpg">
-              </div>
-              <div class="carousel-item" id="91">
-                <img class="img-fluid" src="images/G92.jpeg" alt="LW__0077_Layer-2-copy-77.jpg">
-              </div>
-              <div class="carousel-item" id="92">
-                <img class="img-fluid" src="images/G93.jpeg" alt="LW__0004_Layer-2-copy-4.jpg">
-              </div>
-              <div class="carousel-item" id="93">
-                <img class="img-fluid" src="images/G94.jpeg" alt="LW__0014_Layer-2-copy-14.jpg">
-              </div>
-              <div class="carousel-item" id="94">
-                <img class="img-fluid" src="images/G95.jpeg" alt="LW__0014_Layer-2-copy-14.jpg">
-              </div>
-              <div class="carousel-item" id="95">
-                <img class="img-fluid" src="images/G96.jpeg" alt="LW__0014_Layer-2-copy-14.jpg">
-              </div>
-              <div class="carousel-item" id="96">
-                <img class="img-fluid" src="images/G97.jpeg" alt="LW__0030_Layer-2-copy-30.jpg">
-              </div>
-              <div class="carousel-item" id="97">
-                <img class="img-fluid" src="images/G98.jpeg" alt="LW__0007_Layer-2-copy-7.jpg">
-              </div>
-              <div class="carousel-item" id="98">
-                <img class="img-fluid" src="images/G99.jpeg" alt="LW__0001_Layer-2-copy.jpg">
-              </div>
-              <div class="carousel-item" id="100">
-                <img class="img-fluid" src="images/G101.jpeg" alt="LW__0006_Layer-2-copy-6.jpg">
-              </div>
+             
               <div class="carousel-item" id="101">
                 <img class="img-fluid" src="images/G102.jpeg" alt="LW__0077_Layer-2-copy-77.jpg">
               </div>
