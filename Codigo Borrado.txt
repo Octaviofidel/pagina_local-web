@@ -1,0 +1,32 @@
+
+
+---------------- Menu desplegable servicios ------------------------
+
+
+                                    <li class="dropdown rd-nav-item" id="dropdown">
+
+                      <a href="#" class="rd-nav-link">Servicios</a>
+
+                      <div class="dropdown-content">
+
+                        <a href="mesas.html">Mesas</a>
+
+                        <a href="sillas.html">Sillas</a>
+
+                        <a href="cristaleria.html">Cristalería</a>
+
+                        <a href="cyv.html">Vajilla y Cubiertos</a>
+
+                        <a href="manteleria.html">Mantelería</a>
+
+                        <a href="salas.html">Salas y periqueras</a>
+
+                        <a href="toldos.html">Toldos</a>
+
+                        <a href="eqs.html">Equipo de servicio</a>
+
+                        <a href="banqycat.html">Banquetes y Catering</a>
+
+                      </div>
+
+                    </li>
