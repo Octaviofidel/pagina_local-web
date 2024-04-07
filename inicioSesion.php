@@ -1,32 +1,44 @@
 <?php
 include 'connection_bd.php';
-  // Conectar a la base de datos
-  $conn = conectar();
 
-//   $email = $_POST['email'];
-// $password = ($_POST['pass']); 
+// Verificar si se ha enviado el formulario
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Conectar a la base de datos
+    $conn = conectar();
 
-    // Preparar la consulta SQL
-    $sql = "SELECT * FROM usuario";
+    // Capturar y validar los valores del formulario
+    $email = $_POST['email'];
+    $password = md5($_POST['password']);
+
+    // Imprimir los valores del correo electrónico y la contraseña para verificar
+    echo "Correo electrónico: " . $email . "<br>";
+    echo "Contraseña: " . $password . "<br>";
+
+    // Preparar la consulta SQL para verificar las credenciales
+    $sql = "SELECT * FROM usuario WHERE email='$email' AND pass='$password'";
     $result = mysqli_query($conn, $sql);
-    // Ejecutar la consulta SQL
-    if (mysqli_num_rows($result) > 0) {
-      // Iterar sobre los resultados
-      while ($row = mysqli_fetch_assoc($result)) {
-          // Imprimir los datos de cada fila
-          echo "ID: " . $row["id"] . "<br>";
-          echo "Nombre: " . $row["nombre"] . "<br>";
-          echo "Correo electrónico: " . $row["email"] . "<br>";
-          // Continuar con otros campos según sea necesario
-          echo "<br>";
-      }
-  } else {
-      echo "No se encontraron resultados.";
-  }
-    // Cerrar la conexión
-    // mysqli_close($conn);
 
+    // Verificar si se encontró un registro con las credenciales proporcionadas
+    if (mysqli_num_rows($result) == 1) {
+        // Iniciar sesión
+        // session_start();
+        echo "Inicio Sesión Correcto";
+
+        // // Guardar el correo electrónico del usuario en la sesión
+        // $_SESSION['email'] = $email;
+
+        // // Redireccionar al usuario a la página de inicio de sesión
+        // header("Location: inicioSesionExitoso.php");
+        // exit();
+    } else {
+        echo "Correo electrónico o contraseña incorrectos.";
+    }
+
+    // Cerrar la conexión
+    mysqli_close($conn);
+}
 ?>
+
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="es">
 
@@ -232,27 +244,30 @@ include 'connection_bd.php';
                 <h6 class="title-style-1 wow fadeInRight letras_color2" data-wow-delay=".05s">Bienvenido</h6>
                 <div class="form-style-1 context-dark wow blurIn">
                   <!-- RD Mailform-->
-                  <form class="text-left" data-form-output="form-output-global" data-form-type="contact">
-                    <div class="form-wrap">
-                      <label class="form-label" for="contact-email-2">Email</label>
-                      <input class="form-input" id="contact-email-2" type="email" name="email" data-constraints="@Required @Email">
-                    </div>
-                    <div class="form-wrap">
-                      <label class="form-label" for="contact-com-2">Contraseña</label>
-                      <input type="password" name="password" placeholder="Contraseña">
-                    </div>
-                    <div class="form-button">
-                      <div class="d-inline-block">
-                        <button class="button button-jerry button-primary" type="submit">Enviar<span class="button-jerry-line"></span><span class="button-jerry-line"></span><span class="button-jerry-line"></span><span class="button-jerry-line"></span></button>
-                      </div>
-                      <div class="d-inline-block">
-                        <button class="button button-jerry button-primary">
-                          <a href="registro.php" style="text-decoration: none; color: inherit;">Registrate</a>
-                          <span class="button-jerry-line"></span><span class="button-jerry-line"></span><span class="button-jerry-line"></span><span class="button-jerry-line"></span>
-                        </button>
-                      </div>
-                    </div>
-                  </form>
+
+
+                <form class="text-left" data-form-output="form-output-global" data-form-type="contact" method="POST"  action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+    <div class="form-wrap">
+        <label class="form-label" for="contact-email-2">Email</label>
+        <input class="form-input" id="contact-email-2" type="email" name="email" data-constraints="@Required @Email">
+    </div>
+    <div class="form-wrap">
+        <label class="form-label" for="contact-com-2">Contraseña</label>
+        <input type="password" name="password" placeholder="Contraseña">
+    </div>
+    <div class="form-button">
+        <div class="d-inline-block">
+            <button class="button button-jerry button-primary" type="submit">Enviar<span class="button-jerry-line"></span><span class="button-jerry-line"></span><span class="button-jerry-line"></span><span class="button-jerry-line"></span></button>
+        </div>
+        <div class="d-inline-block">
+            <button class="button button-jerry button-primary">
+                <a href="registro.php" style="text-decoration: none; color: inherit;">Registrate</a>
+                <span class="button-jerry-line"></span><span class="button-jerry-line"></span><span class="button-jerry-line"></span><span class="button-jerry-line"></span>
+            </button>
+        </div>
+    </div>
+</form>
+
                   
                 </div>
               </div>
