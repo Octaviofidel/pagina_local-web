@@ -141,7 +141,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               <!-- RD Navbar Panel-->
               <div class="rd-navbar-panel">
                 <!-- RD Navbar Brand-->
-                <div class="rd-navbar-brand"><a class="brand" href="index.html" style="max-width: 88px;">
+                <div class="rd-navbar-brand"><a class="brand" href="index.php" style="max-width: 88px;">
                     <img src="images/logo.png" srcset="images/logo.png" style="max-width: 100px;"></a>
                 </div>
                 <!-- RD Navbar Toggle-->
@@ -162,35 +162,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                   <!-- RD Navbar Nav-->
                   <ul class="rd-navbar-nav">
                     <li class="logocasa">
-                      <a class="rd-nav-item" href="index.html" style="max-width: 88px;">
+                      <a class="rd-nav-item" href="index.php" style="max-width: 88px;">
                         <img src="images/logo.png" srcset="images/logo.png"
                           style="max-width: 100px;"></a>
                     </li>
-                    <li class="rd-nav-item active"><a class="rd-nav-link" href="index.html#home">Inicio</a>
+                    <li class="rd-nav-item active"><a class="rd-nav-link" href="index.php#home">Inicio</a>
                     </li>
-                    <li class="rd-nav-item"><a class="rd-nav-link" href="index.html#about">¿Quiénes somos?</a>
+                    <li class="rd-nav-item"><a class="rd-nav-link" href="index.php#about">¿Quiénes somos?</a>
                     </li>
 
 
                     <li class="dropdown rd-nav-item" id="dropdown">
                       <a href="#" class="dropbtn rd-nav-link">Servicios</a>
                       <div class="dropdown-content">
-                        <a href="mesas.html">Mesas</a>
-                        <a href="sillas.html">Sillas</a>
-                        <a href="cristaleria.html">Cristalería</a>
-                        <a href="cyv.html">Vajilla y Cubiertos</a>
-                        <a href="manteleria.html">Mantelería</a>
-                        <a href="salas.html">Salas y periqueras</a>
-                        <a href="toldos.html">Toldos</a>
-                        <a href="eqs.html">Equipo de servicio</a>
-                        <a href="banqycat.html">Banquetes y Catering</a>
+                        <a href="mesas.php">Mesas</a>
+                        <a href="sillas.php">Sillas</a>
+                        <a href="cristaleria.php">Cristalería</a>
+                        <a href="cyv.php">Vajilla y Cubiertos</a>
+                        <a href="manteleria.php">Mantelería</a>
+                        <a href="salas.php">Salas y periqueras</a>
+                        <a href="toldos.php">Toldos</a>
+                        <a href="eqs.php">Equipo de servicio</a>
+                        <a href="banqycat.php">Banquetes y Catering</a>
                       </div>
                     </li>
-                    <li class="rd-nav-item"><a class="rd-nav-link" href="index.html#contacts">Contáctenos</a>
+                    <li class="rd-nav-item"><a class="rd-nav-link" href="index.php#contacts">Contáctenos</a>
                     </li>
-                    <li class="rd-nav-item"><a class="rd-nav-link" href="index.html#cat">Catálogo</a>
+                    <li class="rd-nav-item"><a class="rd-nav-link" href="index.php#cat">Catálogo</a>
                     </li>
-                    <li class="rd-nav-item"><a class="rd-nav-link" href="inicioSesion.html">Inicio de sesion</a>
+                    <li class="rd-nav-item"><a class="rd-nav-link" href="inicioSesion.php">Inicio de sesion</a>
                     </li>
                   </ul>
                   <div class="contacts-classic">
@@ -356,7 +356,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           </div>
         </div>
       </div>
-      <div class="container"><a class="brand wow blurIn" href="index.html">
+      <div class="container"><a class="brand wow blurIn" href="index.php">
           <img src="images/logo.png" alt="" width="25%" height="auto"
             srcset="images/logo.png"></a>
         <p class="rights">
