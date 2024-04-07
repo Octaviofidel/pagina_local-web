@@ -126,6 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['actualizar'])) {
   </noscript>
 
   <!-- End Facebook Pixel Code -->
+  
 </head>
 
 <body>
@@ -262,6 +263,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['actualizar'])) {
       <div>
         <a href="cerrar_sesion.php" class="button button-jerry button-primary">Cerrar Sesión</a>
       </div>
+      <button type="button" id="eliminarCuentaBtn" class="button button-jerry button-primary">Borrar Cuenta</button>
+      <script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var eliminarCuentaBtn = document.getElementById('eliminarCuentaBtn');
+
+    eliminarCuentaBtn.addEventListener('click', function() {
+      var confirmacion = confirm("<?php echo $_SESSION['nombre']; ?>, ¿estás seguro que deseas eliminar tu cuenta?");
+
+      if (confirmacion) {
+        window.location.href = 'eliminar_cuenta.php';
+      }
+    });
+  });
+</script>
+
     </div>
   </div>
 </div>
