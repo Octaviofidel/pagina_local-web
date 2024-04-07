@@ -150,7 +150,7 @@ try{if (mysqli_query($conn, $sql)) {
 
                 <!-- Logo Barra Nevegacion Estatica-->
 
-                <div class="rd-navbar-brand"><a class="brand" href="index.html" style="max-width: 88px;">
+                <div class="rd-navbar-brand"><a class="brand" href="index.php" style="max-width: 88px;">
 
                     <img src="images/logo.png" srcset="images/logo.png" style="max-width: 100px;"></a>
 
@@ -188,7 +188,7 @@ try{if (mysqli_query($conn, $sql)) {
 
                     <li class="logocasa">
 
-                      <a class="rd-nav-item" href="index.html" style="max-width: 88px;">
+                      <a class="rd-nav-item" href="index.php" style="max-width: 88px;">
 
                         <img src="images/logo.png" srcset="images/logo.png" style="max-width: 100px;"></a>
 
@@ -204,7 +204,7 @@ try{if (mysqli_query($conn, $sql)) {
 
                     </li>
 
-                    <li class="rd-nav-item"><a class="rd-nav-link" href="galeria.html">Galería</a>
+                    <li class="rd-nav-item"><a class="rd-nav-link" href="galeria.php">Galería</a>
 
                     </li>
 
@@ -214,6 +214,16 @@ try{if (mysqli_query($conn, $sql)) {
 
                     <li class="rd-nav-item"><a class="rd-nav-link" href="inicioSesion.php">Inicio de sesion</a>
 
+                    </li>
+
+                    <li class="rd-nav-item">
+                      <?php
+                      session_start();
+                      if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+                        echo '<a class="rd-nav-link" href="profile.php"><i class="fas fa-user"></i></a>';
+                      } else {
+                      }
+                      ?>
                     </li>
 
 
@@ -691,7 +701,7 @@ try{if (mysqli_query($conn, $sql)) {
         </div>
       </div>
 
-      <div class="container"><a class="brand wow blurIn" href="index.html">
+      <div class="container"><a class="brand wow blurIn" href="index.php">
           <img src="images/logo.png" alt="" width="25%" height="auto"
             srcset="images/logo.png"></a>
         <p class="rights">
