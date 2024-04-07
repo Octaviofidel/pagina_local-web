@@ -23,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION['email'] = $row['email'];
     $_SESSION['telefono'] = $row['telefono'];
     echo "Inicio Sesión Correcto";
+    header("Location: index.php");
   } else {
     echo "Correo electrónico o contraseña incorrectos.";
   }

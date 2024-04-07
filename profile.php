@@ -252,7 +252,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="telefono">Teléfono:</label>
                 <input type="tel" id="telefono" name="telefono" value="<?php echo $_SESSION['telefono']; ?>" readonly>
             </div>
-            <!-- No se debe mostrar la contraseña -->
+            <div>
+            <a href="cerrar_sesion.php" class="button button-jerry button-primary">Cerrar Sesión</a>
+        </div>
+          
         </div>
     </div>
 </div>
