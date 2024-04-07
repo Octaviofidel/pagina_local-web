@@ -266,15 +266,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['actualizar'])) {
       <button type="button" id="eliminarCuentaBtn" class="button button-jerry button-primary">Borrar Cuenta</button>
       <script>
   document.addEventListener('DOMContentLoaded', function() {
-    // Obtener el botón de eliminar cuenta por su ID
     var eliminarCuentaBtn = document.getElementById('eliminarCuentaBtn');
 
-    // Agregar un evento de clic al botón
     eliminarCuentaBtn.addEventListener('click', function() {
-      // Mostrar un cuadro de diálogo de confirmación
       var confirmacion = confirm("<?php echo $_SESSION['nombre']; ?>, ¿estás seguro que deseas eliminar tu cuenta?");
 
-      // Si el usuario confirma la eliminación, redirigir a la página de eliminación de cuenta
       if (confirmacion) {
         window.location.href = 'eliminar_cuenta.php';
       }

@@ -2,20 +2,15 @@
 include 'connection_bd.php';
 session_start(); // Inicia la sesión al principio del archivo
 
-// Verificar si se ha enviado el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  // Conectar a la base de datos
   $conn = conectar();
 
-  // Capturar y validar los valores del formulario
   $email = $_POST['email'];
   $password = md5($_POST['password']);
 
-  // Preparar la consulta SQL para verificar las credenciales
   $sql = "SELECT * FROM usuario WHERE email='$email' AND pass='$password'";
   $result = mysqli_query($conn, $sql);
 
-  // Verificar si se encontró un registro con las credenciales proporcionadas
   if (mysqli_num_rows($result) == 1) {
     $_SESSION['loggedin'] = true;
     $row = mysqli_fetch_assoc($result);
@@ -29,7 +24,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Correo electrónico o contraseña incorrectos.";
   }
 
-  // Cerrar la conexión
   mysqli_close($conn);
 }
 ?>

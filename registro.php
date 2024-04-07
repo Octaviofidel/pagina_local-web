@@ -1,31 +1,24 @@
 <?php
 include 'connection_bd.php';
 
-// Verificar si se ha enviado el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Conectar a la base de datos
     $conn = conectar();
 
-    // Capturar y validar los valores del formulario
     $nombre = $_POST['nombre'];
     $email = $_POST['email'];
     $telefono = $_POST['telefono'];
     $password = md5($_POST['password']);
 
-    // Verificar si los campos no están vacíos
     if (!empty($nombre) && !empty($email) && !empty($telefono) && !empty($password)) {
-        // Preparar la consulta SQL
         $sql = "INSERT INTO usuario (nombre, email, telefono, pass)
                 VALUES ('$nombre', '$email', '$telefono', '$password')";
 
-        // Ejecutar la consulta SQL
         if (mysqli_query($conn, $sql)) {
             echo "Registro insertado correctamente";
         } else {
             echo "Error al insertar el registro: " . mysqli_error($conn);
         }
 
-        // Cerrar la conexión
         mysqli_close($conn);
     } else {
         echo "Todos los campos son obligatorios.";
