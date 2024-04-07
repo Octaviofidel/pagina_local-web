@@ -1,3 +1,32 @@
+<?php
+include 'connection_bd.php';
+  // Conectar a la base de datos
+  $conn = conectar();
+
+//   $email = $_POST['email'];
+// $password = ($_POST['pass']); 
+
+    // Preparar la consulta SQL
+    $sql = "SELECT * FROM usuario";
+    $result = mysqli_query($conn, $sql);
+    // Ejecutar la consulta SQL
+    if (mysqli_num_rows($result) > 0) {
+      // Iterar sobre los resultados
+      while ($row = mysqli_fetch_assoc($result)) {
+          // Imprimir los datos de cada fila
+          echo "ID: " . $row["id"] . "<br>";
+          echo "Nombre: " . $row["nombre"] . "<br>";
+          echo "Correo electrónico: " . $row["email"] . "<br>";
+          // Continuar con otros campos según sea necesario
+          echo "<br>";
+      }
+  } else {
+      echo "No se encontraron resultados.";
+  }
+    // Cerrar la conexión
+    // mysqli_close($conn);
+
+?>
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="es">
 
@@ -233,6 +262,7 @@
       </div>
     </section>
   </div>
+
 
   <!-- Modal -->
   <div class="modal" id="modal-img" tabindex="1" role="dialog" aria-labelledby="exampleModalCenterTitle"
