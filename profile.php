@@ -2,24 +2,16 @@
 include 'connection_bd.php';
 session_start();
 
-// Verificar si se ha enviado el formulario para actualizar
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['actualizar'])) {
-    // Conectar a la base de datos
     $conn = conectar();
-
-    // Capturar y validar los valores del formulario
     $nombre = $_POST['nombre'];
     $email = $_POST['email'];
     $telefono = $_POST['telefono'];
 
-    // Verificar si los campos no están vacíos
     if (!empty($nombre) && !empty($email) && !empty($telefono)) {
-        // Preparar la consulta SQL para actualizar la información del usuario
         $sql = "UPDATE usuario SET nombre='$nombre', email='$email', telefono='$telefono' WHERE id = ".$_SESSION['id'];
 
-        // Ejecutar la consulta SQL
         if (mysqli_query($conn, $sql)) {
-            // Actualizar los datos en la sesión
             $_SESSION['nombre'] = $nombre;
             $_SESSION['email'] = $email;
             $_SESSION['telefono'] = $telefono;
@@ -29,7 +21,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['actualizar'])) {
             echo "Error al actualizar la información: " . mysqli_error($conn);
         }
 
-        // Cerrar la conexión
         mysqli_close($conn);
     } else {
         echo "Todos los campos son obligatorios.";
