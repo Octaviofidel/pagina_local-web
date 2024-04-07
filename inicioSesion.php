@@ -19,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if (mysqli_num_rows($result) == 1) {
     $_SESSION['loggedin'] = true;
     $row = mysqli_fetch_assoc($result);
+    $_SESSION['id'] = $row['id'];
     $_SESSION['nombre'] = $row['nombre'];
     $_SESSION['email'] = $row['email'];
     $_SESSION['telefono'] = $row['telefono'];

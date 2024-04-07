@@ -2,60 +2,38 @@
 include 'connection_bd.php';
 session_start();
 
-// Verificar si se ha enviado el formulario de inicio de sesión
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['iniciar_sesion'])) {
+// Verificar si se ha enviado el formulario para actualizar
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['actualizar'])) {
     // Conectar a la base de datos
     $conn = conectar();
 
-    // Capturar y validar los valores del formulario de inicio de sesión
-    $email = $_POST['email'];
-    $password = md5($_POST['password']);
-
-    // Preparar la consulta SQL para verificar las credenciales
-    $sql = "SELECT * FROM usuario WHERE email='$email' AND pass='$password'";
-    $result = mysqli_query($conn, $sql);
-
-    // Verificar si se encontró un registro con las credenciales proporcionadas
-    if (mysqli_num_rows($result) == 1) {
-        // Iniciar sesión
-        $_SESSION['loggedin'] = true;
-
-        // Obtener los datos del usuario y guardarlos en la sesión
-        $row = mysqli_fetch_assoc($result);
-        $_SESSION['id'] = $row['id'];
-        $_SESSION['nombre'] = $row['nombre'];
-        $_SESSION['email'] = $row['email'];
-        $_SESSION['telefono'] = $row['telefono'];
-
-        echo "Inicio de sesión correcto";
-    } else {
-        echo "Correo electrónico o contraseña incorrectos.";
-    }
-
-    // Cerrar la conexión
-    mysqli_close($conn);
-}
-
-// Verificar si se ha enviado el formulario de cierre de sesión
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cerrar_sesion'])) {
-    // Destruir la sesión
-    session_destroy();
-    $_SESSION = array(); // Limpiar todas las variables de sesión
-    echo "Sesión cerrada correctamente";
-}
-
-// Verificar si se ha enviado el formulario de registro
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['registrar'])) {
-    // Conectar a la base de datos
-    $conn = conectar();
-
-    // Capturar y validar los valores del formulario de registro
+    // Capturar y validar los valores del formulario
     $nombre = $_POST['nombre'];
     $email = $_POST['email'];
     $telefono = $_POST['telefono'];
-    $password = md5($_POST['password']);
 
-   
+    // Verificar si los campos no están vacíos
+    if (!empty($nombre) && !empty($email) && !empty($telefono)) {
+        // Preparar la consulta SQL para actualizar la información del usuario
+        $sql = "UPDATE usuario SET nombre='$nombre', email='$email', telefono='$telefono' WHERE id = ".$_SESSION['id'];
+
+        // Ejecutar la consulta SQL
+        if (mysqli_query($conn, $sql)) {
+            // Actualizar los datos en la sesión
+            $_SESSION['nombre'] = $nombre;
+            $_SESSION['email'] = $email;
+            $_SESSION['telefono'] = $telefono;
+
+            echo "Información actualizada correctamente.";
+        } else {
+            echo "Error al actualizar la información: " . mysqli_error($conn);
+        }
+
+        // Cerrar la conexión
+        mysqli_close($conn);
+    } else {
+        echo "Todos los campos son obligatorios.";
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -259,33 +237,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['registrar'])) {
         </div>
 
         <div class="row flex-row">
-    <div class="col-md-10 col-lg-6">
-        <div class="inset-xl-left-35 mb-1">
-            <h3 class="wow fadeInRight letras_color">Mi Perfil</h3>
-            <h6 class="title-style-1 wow fadeInRight letras_color2" data-wow-delay=".05s">Puedes editar tu cuenta aquí</h6>
-            <!-- Campos para mostrar la información del usuario -->
-            <div>
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" value="<?php echo $_SESSION['nombre']; ?>" readonly>
-            </div>
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" value="<?php echo $_SESSION['email']; ?>" readonly>
-            </div>
-            <div>
-                <label for="telefono">Teléfono:</label>
-                <input type="tel" id="telefono" name="telefono" value="<?php echo $_SESSION['telefono']; ?>" readonly>
-            </div>
-            <div>
-            <a href="cerrar_sesion.php" class="button button-jerry button-primary">Cerrar Sesión</a>
+        <div class="col-md-10 col-lg-6">
+    <div class="inset-xl-left-35 mb-1">
+      <h3 class="wow fadeInRight letras_color">Mi Perfil</h3>
+      <h6 class="title-style-1 wow fadeInRight letras_color2" data-wow-delay=".05s">Puedes editar tu cuenta aquí</h6>
+      <!-- Formulario para mostrar y actualizar la información del usuario -->
+      <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <div>
+          <label for="nombre">Nombre:</label>
+          <input type="text" id="nombre" name="nombre" value="<?php echo $_SESSION['nombre']; ?>" required>
         </div>
-          
+        <div>
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" value="<?php echo $_SESSION['email']; ?>" required>
         </div>
+        <div>
+          <label for="telefono">Teléfono:</label>
+          <input type="tel" id="telefono" name="telefono" value="<?php echo $_SESSION['telefono']; ?>" required>
+        </div>
+        <!-- Botón para enviar el formulario de actualización -->
+        <button type="submit" name="actualizar" class="button button-jerry button-primary">Actualizar</button>
+      </form>
+      <!-- Botón para cerrar sesión -->
+      <div>
+        <a href="cerrar_sesion.php" class="button button-jerry button-primary">Cerrar Sesión</a>
+      </div>
     </div>
+  </div>
 </div>
 
        
        
+
+
+
+
+
+
+
        
         </div>
       </div>
