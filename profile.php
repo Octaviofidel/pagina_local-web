@@ -2,38 +2,62 @@
 include 'connection_bd.php';
 session_start();
 
-// Verificar si se ha enviado el formulario
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// Verificar si se ha enviado el formulario de inicio de sesión
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['iniciar_sesion'])) {
     // Conectar a la base de datos
     $conn = conectar();
 
-    // Capturar y validar los valores del formulario
+    // Capturar y validar los valores del formulario de inicio de sesión
+    $email = $_POST['email'];
+    $password = md5($_POST['password']);
+
+    // Preparar la consulta SQL para verificar las credenciales
+    $sql = "SELECT * FROM usuario WHERE email='$email' AND pass='$password'";
+    $result = mysqli_query($conn, $sql);
+
+    // Verificar si se encontró un registro con las credenciales proporcionadas
+    if (mysqli_num_rows($result) == 1) {
+        // Iniciar sesión
+        $_SESSION['loggedin'] = true;
+
+        // Obtener los datos del usuario y guardarlos en la sesión
+        $row = mysqli_fetch_assoc($result);
+        $_SESSION['id'] = $row['id'];
+        $_SESSION['nombre'] = $row['nombre'];
+        $_SESSION['email'] = $row['email'];
+        $_SESSION['telefono'] = $row['telefono'];
+
+        echo "Inicio de sesión correcto";
+    } else {
+        echo "Correo electrónico o contraseña incorrectos.";
+    }
+
+    // Cerrar la conexión
+    mysqli_close($conn);
+}
+
+// Verificar si se ha enviado el formulario de cierre de sesión
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['cerrar_sesion'])) {
+    // Destruir la sesión
+    session_destroy();
+    $_SESSION = array(); // Limpiar todas las variables de sesión
+    echo "Sesión cerrada correctamente";
+}
+
+// Verificar si se ha enviado el formulario de registro
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['registrar'])) {
+    // Conectar a la base de datos
+    $conn = conectar();
+
+    // Capturar y validar los valores del formulario de registro
     $nombre = $_POST['nombre'];
     $email = $_POST['email'];
     $telefono = $_POST['telefono'];
     $password = md5($_POST['password']);
 
-    // Verificar si los campos no están vacíos
-    if (!empty($nombre) && !empty($email) && !empty($telefono) && !empty($password)) {
-        // Preparar la consulta SQL
-        $sql = "INSERT INTO usuario (nombre, email, telefono, pass)
-                VALUES ('$nombre', '$email', '$telefono', '$password')";
-
-        // Ejecutar la consulta SQL
-        if (mysqli_query($conn, $sql)) {
-            echo "Registro insertado correctamente";
-        } else {
-            echo "Error al insertar el registro: " . mysqli_error($conn);
-        }
-
-        // Cerrar la conexión
-        mysqli_close($conn);
-    } else {
-        echo "Todos los campos son obligatorios.";
-    }
+   
 }
 ?>
-
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="es">
 

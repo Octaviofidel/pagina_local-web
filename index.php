@@ -2,16 +2,8 @@
 include 'connection_bd.php';
 $conn = conectar();
 
-$sql = "INSERT INTO `usuario`(`nombre`, `email`, `telefono`, `pass`)
-VALUES ('value-1', 'value-2', 'value-3', 'value-4')";
 
-try{if (mysqli_query($conn, $sql)) {
- 
-} else {
-  echo "Error en la BD: " . mysqli_error($conn);
-}}catch (e){
- echo'error';
-}
+
 
 ?>
 
