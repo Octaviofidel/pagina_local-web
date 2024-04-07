@@ -1,5 +1,6 @@
 <?php
 include 'connection_bd.php';
+session_start(); // Inicia la sesión al principio del archivo
 
 // Verificar si se ha enviado el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -10,26 +11,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = md5($_POST['password']);
 
-    // Imprimir los valores del correo electrónico y la contraseña para verificar
-    echo "Correo electrónico: " . $email . "<br>";
-    echo "Contraseña: " . $password . "<br>";
-
     // Preparar la consulta SQL para verificar las credenciales
     $sql = "SELECT * FROM usuario WHERE email='$email' AND pass='$password'";
     $result = mysqli_query($conn, $sql);
 
     // Verificar si se encontró un registro con las credenciales proporcionadas
     if (mysqli_num_rows($result) == 1) {
-        // Iniciar sesión
-        // session_start();
+      $_SESSION['loggedin'] = true;
         echo "Inicio Sesión Correcto";
-
-        // // Guardar el correo electrónico del usuario en la sesión
-        // $_SESSION['email'] = $email;
-
-        // // Redireccionar al usuario a la página de inicio de sesión
-        // header("Location: inicioSesionExitoso.php");
-        // exit();
     } else {
         echo "Correo electrónico o contraseña incorrectos.";
     }
@@ -139,6 +128,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <div class="preloader">
     <div class="cssload-box-loading"></div>
   </div>
+
+
+
+
+
+
+
+
+
   <div class="page">
     <!-- Page Header-->
     <header class="section novi-background bg-cover page-header" id="home">
@@ -205,6 +203,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </li>
                     <li class="rd-nav-item"><a class="rd-nav-link" href="inicioSesion.php">Inicio de sesion</a>
                     </li>
+                    <li class="rd-nav-item">
+                      <?php
+                      session_start();
+                      if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+                          // La sesión está iniciada, mostrar el icono de usuario
+                          echo '<a class="rd-nav-link" href="profile.php"><i class="fas fa-user"></i></a>';
+                      } else {
+                          // La sesión no está iniciada, no mostrar el icono de usuario
+                      }
+                      ?>
+                  </li>
                   </ul>
                   <div class="contacts-classic">
                     <div class="unit align-items-center">
@@ -212,6 +221,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                           href="https://api.whatsapp.com/send?phone=523334682260">
                           <div class="unit-left"><span class="icon novi-icon fab fa-whatsapp"></span></div>
                         </a></div>
+                        </a>
+                      </div>
+                          
                       <div class="unit-body"><a class="contacts-classic-text" href="tel:3334682260">
                           <div class="unit-left"><span class="icon novi-icon mdi mdi-phone"></span></div>
                         </a></div>
@@ -266,6 +278,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </button>
         </div>
     </div>
+
+
+
+
+
+
+
 </form>
 
                   
