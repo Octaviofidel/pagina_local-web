@@ -1,32 +1,38 @@
 <?php
 include 'connection_bd.php';
+session_start(); // Inicia la sesión al principio del archivo
+
+// Verificar si se ha enviado el formulario
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Conectar a la base de datos
   $conn = conectar();
 
-//   $email = $_POST['email'];
-// $password = ($_POST['pass']); 
+  // Capturar y validar los valores del formulario
+  $email = $_POST['email'];
+  $password = md5($_POST['password']);
 
-    // Preparar la consulta SQL
-    $sql = "SELECT * FROM usuario";
-    $result = mysqli_query($conn, $sql);
-    // Ejecutar la consulta SQL
-    if (mysqli_num_rows($result) > 0) {
-      // Iterar sobre los resultados
-      while ($row = mysqli_fetch_assoc($result)) {
-          // Imprimir los datos de cada fila
-          echo "ID: " . $row["id"] . "<br>";
-          echo "Nombre: " . $row["nombre"] . "<br>";
-          echo "Correo electrónico: " . $row["email"] . "<br>";
-          // Continuar con otros campos según sea necesario
-          echo "<br>";
-      }
+  // Preparar la consulta SQL para verificar las credenciales
+  $sql = "SELECT * FROM usuario WHERE email='$email' AND pass='$password'";
+  $result = mysqli_query($conn, $sql);
+
+  // Verificar si se encontró un registro con las credenciales proporcionadas
+  if (mysqli_num_rows($result) == 1) {
+    $_SESSION['loggedin'] = true;
+    $row = mysqli_fetch_assoc($result);
+    $_SESSION['nombre'] = $row['nombre'];
+    $_SESSION['email'] = $row['email'];
+    $_SESSION['telefono'] = $row['telefono'];
+    echo "Inicio Sesión Correcto";
+    header("Location: index.php");
   } else {
-      echo "No se encontraron resultados.";
+    echo "Correo electrónico o contraseña incorrectos.";
   }
-    // Cerrar la conexión
-    // mysqli_close($conn);
 
+  // Cerrar la conexión
+  mysqli_close($conn);
+}
 ?>
+
 <!DOCTYPE html>
 <html class="wide wow-animation" lang="es">
 
@@ -88,7 +94,7 @@ include 'connection_bd.php';
       if (f.fbq) return; n = f.fbq = function () {
         n.callMethod ?
 
-        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
       };
 
       if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
@@ -127,6 +133,15 @@ include 'connection_bd.php';
   <div class="preloader">
     <div class="cssload-box-loading"></div>
   </div>
+
+
+
+
+
+
+
+
+
   <div class="page">
     <!-- Page Header-->
     <header class="section novi-background bg-cover page-header" id="home">
@@ -162,36 +177,38 @@ include 'connection_bd.php';
 
                   <!-- RD Navbar Nav-->
                   <ul class="rd-navbar-nav">
+                    
                     <li class="logocasa">
                       <a class="rd-nav-item" href="index.php" style="max-width: 88px;">
-                        <img src="images/logo.png" srcset="images/logo.png"
-                          style="max-width: 100px;"></a>
+                        <img src="images/logo.png" srcset="images/logo.png" style="max-width: 100px;"></a>
                     </li>
                     <li class="rd-nav-item active"><a class="rd-nav-link" href="index.php#home">Inicio</a>
                     </li>
                     <li class="rd-nav-item"><a class="rd-nav-link" href="index.php#about">¿Quiénes somos?</a>
                     </li>
+                    </li>
+                    <li class="rd-nav-item"><a class="rd-nav-link" href="index.php#services">Menu</a>
+                    </li>
+                    <li class="rd-nav-item"><a class="rd-nav-link" href="galeria.php">Galería</a>
+                    </li>
+
+                    <li class="rd-nav-item"><a class="rd-nav-link" href="#cat">haz tu pedido</a>
+
+</li>
+
+<li class="rd-nav-item"><a class="rd-nav-link" href="inicioSesion.php">Inicio de sesion</a>
+
+</li>
 
 
-                    <li class="dropdown rd-nav-item" id="dropdown">
-                      <a href="#" class="dropbtn rd-nav-link">Servicios</a>
-                      <div class="dropdown-content">
-                        <a href="mesas.html">Mesas</a>
-                        <a href="sillas.html">Sillas</a>
-                        <a href="cristaleria.html">Cristalería</a>
-                        <a href="cyv.html">Vajilla y Cubiertos</a>
-                        <a href="manteleria.html">Mantelería</a>
-                        <a href="salas.html">Salas y periqueras</a>
-                        <a href="toldos.html">Toldos</a>
-                        <a href="eqs.html">Equipo de servicio</a>
-                        <a href="banqycat.html">Banquetes y Catering</a>
-                      </div>
-                    </li>
-                    <li class="rd-nav-item"><a class="rd-nav-link" href="index.php#contacts">Contáctenos</a>
-                    </li>
-                    <li class="rd-nav-item"><a class="rd-nav-link" href="index.php#cat">Catálogo</a>
-                    </li>
-                    <li class="rd-nav-item"><a class="rd-nav-link" href="inicioSesion.php">Inicio de sesion</a>
+                    <li class="rd-nav-item">
+                      <?php
+                      session_start();
+                      if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
+                        echo '<a class="rd-nav-link" href="profile.php"><i class="fas fa-user"></i></a>';
+                      } else {
+                      }
+                      ?>
                     </li>
                   </ul>
                   <div class="contacts-classic">
@@ -200,67 +217,85 @@ include 'connection_bd.php';
                           href="https://api.whatsapp.com/send?phone=523334682260">
                           <div class="unit-left"><span class="icon novi-icon fab fa-whatsapp"></span></div>
                         </a></div>
-                      <div class="unit-body"><a class="contacts-classic-text" href="tel:3334682260">
-                          <div class="unit-left"><span class="icon novi-icon mdi mdi-phone"></span></div>
-                        </a></div>
-                      <a href="https://www.facebook.com/gorditasdonalola.reynaga?mibextid=2JQ9oc/" target="_blank"><i
-                          class="fab fa-facebook" style="font-size: 25px; color:darkgrey; cursor: pointer;"></i></a>
-                      <a href="https://www.instagram.com/gorditasdonalolatlaquepaque/" target="_blank"><i class="fab fa-instagram"
-                          style="font-size: 25px; color: darkgray; cursor: pointer;"></i></a>
-
+                      </a>
                     </div>
+
+                    <div class="unit-body"><a class="contacts-classic-text" href="tel:3334682260">
+                        <div class="unit-left"><span class="icon novi-icon mdi mdi-phone"></span></div>
+                      </a></div>
+                    <a href="https://www.facebook.com/gorditasdonalola.reynaga?mibextid=2JQ9oc/" target="_blank"><i
+                        class="fab fa-facebook" style="font-size: 25px; color:darkgrey; cursor: pointer;"></i></a>
+                    <a href="https://www.instagram.com/gorditasdonalolatlaquepaque/" target="_blank"><i
+                        class="fab fa-instagram" style="font-size: 25px; color: darkgray; cursor: pointer;"></i></a>
+
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </nav>
       </div>
-    </header>
-    <section class="galery mb-3" id="galery">
-      <div class="container-fluid">
-        <div class="row mb-0 pb-0">
-          <div class="col-md-3 project-mary-title text-title">
-            <h3 class="project-classic-text">inicio de sesion </h3>
+      </nav>
+  </div>
+  </header>
+  <section class="galery mb-3" id="galery">
+    <div class="container-fluid">
+      <div class="row mb-0 pb-0">
+        <div class="col-md-3 project-mary-title text-title">
+          <h3 class="project-classic-text">inicio de sesion </h3>
+        </div>
+      </div>
+
+      <div class="row flex-row">
+        <div class="col-md-10 col-lg-6">
+          <div class="inset-xl-left-35 mb-1">
+            <h3 class="wow fadeInRight letras_color">inicio de sesión</h3>
+            <h6 class="title-style-1 wow fadeInRight letras_color2" data-wow-delay=".05s">Bienvenido</h6>
+            <div class="form-style-1 context-dark wow blurIn">
+              <!-- RD Mailform-->
+
+
+              <form class="text-left" data-form-output="form-output-global" data-form-type="contact" method="POST"
+                action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                <div class="form-wrap">
+                  <label class="form-label" for="contact-email-2">Email</label>
+                  <input class="form-input" id="contact-email-2" type="email" name="email"
+                    data-constraints="@Required @Email">
+                </div>
+                <div class="form-wrap">
+                  <label class="form-label" for="contact-com-2">Contraseña</label>
+                  <input type="password" name="password" placeholder="Contraseña">
+                </div>
+                <div class="form-button">
+                  <div class="d-inline-block">
+                    <button class="button button-jerry button-primary" type="submit">Enviar<span
+                        class="button-jerry-line"></span><span class="button-jerry-line"></span><span
+                        class="button-jerry-line"></span><span class="button-jerry-line"></span></button>
+                  </div>
+                  <div class="d-inline-block">
+                    <button class="button button-jerry button-primary">
+                      <a href="registro.php" style="text-decoration: none; color: inherit;">Registrate</a>
+                      <span class="button-jerry-line"></span><span class="button-jerry-line"></span><span
+                        class="button-jerry-line"></span><span class="button-jerry-line"></span>
+                    </button>
+                  </div>
+                </div>
+
+
+
+
+
+
+
+              </form>
+
+
+            </div>
           </div>
         </div>
 
-        <div class="row flex-row">
-            <div class="col-md-10 col-lg-6">
-              <div class="inset-xl-left-35 mb-1">
-                <h3 class="wow fadeInRight letras_color">inicio de sesión</h3>
-                <h6 class="title-style-1 wow fadeInRight letras_color2" data-wow-delay=".05s">Bienvenido</h6>
-                <div class="form-style-1 context-dark wow blurIn">
-                  <!-- RD Mailform-->
-                  <form class="text-left" data-form-output="form-output-global" data-form-type="contact">
-                    <div class="form-wrap">
-                      <label class="form-label" for="contact-email-2">Email</label>
-                      <input class="form-input" id="contact-email-2" type="email" name="email" data-constraints="@Required @Email">
-                    </div>
-                    <div class="form-wrap">
-                      <label class="form-label" for="contact-com-2">Contraseña</label>
-                      <input type="password" name="password" placeholder="Contraseña">
-                    </div>
-                    <div class="form-button">
-                      <div class="d-inline-block">
-                        <button class="button button-jerry button-primary" type="submit">Enviar<span class="button-jerry-line"></span><span class="button-jerry-line"></span><span class="button-jerry-line"></span><span class="button-jerry-line"></span></button>
-                      </div>
-                      <div class="d-inline-block">
-                        <button class="button button-jerry button-primary">
-                          <a href="registro.php" style="text-decoration: none; color: inherit;">Registrate</a>
-                          <span class="button-jerry-line"></span><span class="button-jerry-line"></span><span class="button-jerry-line"></span><span class="button-jerry-line"></span>
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                  
-                </div>
-              </div>
-            </div>
-       
-        </div>
       </div>
-    </section>
+    </div>
+  </section>
   </div>
 
 
@@ -643,8 +678,7 @@ include 'connection_bd.php';
         </div>
       </div>
       <div class="container"><a class="brand wow blurIn" href="index.php">
-          <img src="images/logo.png" alt="" width="25%" height="auto"
-            srcset="images/logo.png"></a>
+          <img src="images/logo.png" alt="" width="25%" height="auto" srcset="images/logo.png"></a>
         <p class="rights">
           <a href="http://www.eventoscasareyna.com/"> <i class="mdi mdi-account-key"
               style="font-size: 30px; color:goldenrod; cursor: pointer; padding-right: 12px; padding-top: 9px;"></i></a>
